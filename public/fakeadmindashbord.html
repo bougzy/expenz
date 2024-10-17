@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Fintech App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="admin-dashboard.html">Fintech App Admin</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="logout.html">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        
+        <h2>User Deposits</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Plan</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="depositRequests">
+                <!-- Dynamic content will be added here -->
+            </tbody>
+        </table>
+
+        <h2>User Withdrawals</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Wallet Address</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="withdrawRequests">
+                <!-- Dynamic content will be added here -->
+            </tbody>
+        </table>
+
+        <h2>All Users</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody id="allUsers">
+                <!-- Dynamic content will be added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Inline script for handling admin dashboard logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const depositRequests = document.getElementById('depositRequests');
+            const withdrawRequests = document.getElementById('withdrawRequests');
+            const allUsers = document.getElementById('allUsers');
+
+            depositRequests.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+            withdrawRequests.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+            allUsers.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
+
+            try {
+                const response = await fetch('/api/admin/dashboard', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Ensure you're sending the token
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                console.log('Dashboard Data:', data); 
+
+                // Populate deposit requests
+                data.pendingDeposits.forEach(deposit => {
+                    depositRequests.innerHTML += `
+                        <tr>
+                            <td>${deposit.userId.name}</td>
+                            <td>$${deposit.amount}</td>
+                            <td>${deposit.plan || 'N/A'}</td>
+                            <td>${deposit.status}</td>
+                            <td>
+                                <button class="btn btn-success" onclick="approveDeposit('${deposit._id}')">Approve</button>
+                                <button class="btn btn-danger" onclick="rejectDeposit('${deposit._id}')">Reject</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                // Populate withdrawal requests
+                data.pendingWithdrawals.forEach(withdrawal => {
+                    withdrawRequests.innerHTML += `
+                        <tr>
+                            <td>${withdrawal.userId.name}</td>
+                            <td>$${withdrawal.amount}</td>
+                            <td>${withdrawal.walletAddress || 'N/A'}</td>
+                            <td>${withdrawal.status}</td>
+                            <td>
+                                <button class="btn btn-success" onclick="approveWithdrawal('${withdrawal._id}')">Approve</button>
+                                <button class="btn btn-danger" onclick="rejectWithdrawal('${withdrawal._id}')">Reject</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                // Populate all users
+                data.allUsers.forEach(user => {
+                    allUsers.innerHTML += `
+                        <tr>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>$${user.balance}</td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error loading data:', error);
+                depositRequests.innerHTML = '<tr><td colspan="5">Error loading deposits</td></tr>';
+                withdrawRequests.innerHTML = '<tr><td colspan="5">Error loading withdrawals</td></tr>';
+                allUsers.innerHTML = '<tr><td colspan="3">Error loading users</td></tr>';
+            }
+        });
+
+        function approveDeposit(id) {
+            // Call the API to approve deposit
+            fetch(`/api/transactions/approve-deposit/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (!response.ok) throw new Error('Failed to approve deposit');
+                return response.json();
+            }).then(data => {
+                console.log('Deposit approved:', data);
+                // Reload data to update the table
+                location.reload();
+            }).catch(err => console.error(err));
+        }
+
+        function rejectDeposit(id) {
+            // Call the API to reject deposit (implement similarly to approveDeposit)
+        }
+
+        function approveWithdrawal(id) {
+            // Call the API to approve withdrawal (implement similarly to approveDeposit)
+        }
+
+        function rejectWithdrawal(id) {
+            // Call the API to reject withdrawal (implement similarly to approveDeposit)
+        }
+    </script>
+</body>
+</html>
