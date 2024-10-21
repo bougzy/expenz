@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWINGIFY</title>
+    <title>coinmarketcap</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -11,27 +11,39 @@
             overflow-x: hidden;
             background-color: #000; 
             color: #fff; 
+            animation: fadeInBody 1.5s ease-in-out forwards;
         }
 
-       
-        h1 {
+        @keyframes fadeInBody {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1, h2 {
             font-size: 3rem;
             animation: fadeIn 2s ease-in-out forwards;
             opacity: 0;
         }
 
         @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        
         .nav-link {
             position: relative;
             display: inline-block;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             color: #fff;
         }
 
@@ -44,7 +56,6 @@
             left: 50%;
             background-color: #007bff;
             transition: all 0.3s ease;
-            color: white;
         }
 
         .nav-link:hover::before {
@@ -54,170 +65,63 @@
 
         .nav-link:hover {
             color: #007bff;
+            transform: translateY(-3px);
         }
 
-       
-        .svg-container {
-            margin: 50px auto;
-            text-align: center;
-            animation: slideUp 2s ease-in-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .svg-container svg {
-            width: 300px;
-            height: 300px;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: draw 4s ease forwards;
-        }
-
-        @keyframes draw {
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        .container {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        
         .btn-custom {
-            position: relative;
             background-color: #007bff;
             color: white;
             border: none;
             padding: 10px 20px;
             font-size: 1.2rem;
             cursor: pointer;
-            overflow: hidden;
-            transition: background-color 0.4s ease;
+            transition: background-color 0.4s ease, transform 0.3s ease;
         }
 
         .btn-custom:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
 
-        .btn-custom::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            top: 0;
-            left: -100%;
-            transition: left 0.5s ease;
-            z-index: 0;
-        }
-
-        .btn-custom:hover::before {
-            left: 0;
-        }
-
-        .btn-custom span {
-            position: relative;
-            z-index: 1;
-        }
-
-        
-        .features-section {
-            background-color: #1a1a1a; /* Darker background */
+        .section {
             padding: 60px 0;
-            animation: fadeIn 3s ease-in-out forwards;
+            animation: fadeInSection 2s ease-in-out forwards;
+            opacity: 0;
         }
 
-        .features-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-            animation: bounceIn 1.5s ease forwards;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            60% { transform: scale(1.1); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .features-section .feature {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .features-section .feature img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-        }
-
-       
-        @keyframes fadeInUp {
-            0% {
+        @keyframes fadeInSection {
+            from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .feature {
-            opacity: 0;
-            animation: fadeInUp 1s forwards;
-            animation-delay: 0.3s;
+        .services-section .service {
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-    
-        .btn-interactive:hover {
-            animation: moveButton 1s ease-in-out forwards;
+        .services-section .service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes moveButton {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-            100% { transform: translateX(0); }
+        .features-section {
+            background-color: #1a1a1a; 
+            padding: 60px 0;
+            animation: fadeIn 3s ease-in-out forwards;
         }
 
-       
         .cta-section {
             padding: 80px 0;
             background-color: #111;
             text-align: center;
-            color: #fff;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            animation: fadeIn 2s ease-in-out forwards;
-            opacity: 0;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeInUp 2s ease forwards;
-        }
-
-        .cta-section .btn-primary {
-            padding: 15px 30px;
-            background-color: #007bff;
-            border: none;
-            transition: transform 0.3s ease;
-        }
-
-        .cta-section .btn-primary:hover {
-            transform: scale(1.1);
+            animation: fadeInSection 2s ease-in-out forwards;
         }
 
         .team-section {
@@ -225,207 +129,100 @@
             background-color: #1a1a1a;
         }
 
-        .team-section h2 {
-            color: #fff;
+        footer {
+            background-color: #111;
+            padding: 20px 0;
             text-align: center;
-            margin-bottom: 50px;
-            animation: fadeIn 1.5s ease forwards;
+            color: white;
+            animation: fadeInSection 2s ease-in-out forwards;
         }
-
-        .team-section .team-member {
-            text-align: center;
-            color: #fff;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .team-section .team-member img {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
-        }
-
     </style>
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <a class="navbar-brand text-white" href="#">SWINGIFY</a>
+        <a class="navbar-brand text-white" href="#">coinmarketcap</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto text-white">
-                <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="register.html">Register</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="container">
-        <h1>Welcome to SWINGIFY</h1>
+    <!-- Welcome Section -->
+    <div class="container text-center">
+        <h1>Welcome to coinmarketcap</h1>
         <p>Your financial management made easy.</p>
-        <button class="btn-custom"><span>Get Started</span></button>
+        <button class="btn-custom"><a href="register.html" class="text-white">Get Started</a></button>
     </div>
 
-    <div class="svg-container">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="40" stroke="#007bff" stroke-width="4" fill="none"/>
-            <path d="M30 50 Q50 20, 70 50 T50 80 Z" stroke="#007bff" stroke-width="2" fill="none"/>
-        </svg>
-    </div>
-
-    
-    <section class="features-section">
+    <!-- About Us Section -->
+    <section class="section" id="about-us">
         <div class="container">
-            <h2>Our Features</h2>
+            <h2 class="section-title">About Us</h2>
+            <p>coinmarketcap is dedicated to helping startups and businesses secure funding and grants for growth and development. Our mission is to simplify the grant application process and offer guidance every step of the way.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section bg-secondary services-section" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
             <div class="row">
-                <div class="col-md-4 feature">
-                    <img src="https://img.icons8.com/color/100/000000/money-bag.png" alt="Money Bag Icon">
-                    <h4>Easy Transactions</h4>
-                    <p>Transfer money with ease and security at the click of a button.</p>
+                <div class="col-md-4 service">
+                    <h3>Grant Discovery</h3>
+                    <p>We help you find the best grant opportunities that match your business needs.</p>
                 </div>
-                <div class="col-md-4 feature">
-                    <img src="https://img.icons8.com/color/100/000000/bar-chart.png" alt="Chart Icon">
-                    <h4>Financial Insights</h4>
-                    <p>Get detailed insights into your financial health with smart analytics.</p>
+                <div class="col-md-4 service">
+                    <h3>Application Assistance</h3>
+                    <p>Our experts assist you in creating and submitting a winning grant application.</p>
                 </div>
-                <div class="col-md-4 feature">
-                    <img src="https://img.icons8.com/color/100/000000/customer-support.png" alt="Support Icon">
-                    <h4>24/7 Support</h4>
-                    <p>We are here to help you with any financial queries anytime.</p>
+                <div class="col-md-4 service">
+                    <h3>Fund Management</h3>
+                    <p>We provide financial management services to ensure the proper use of grant funds.</p>
                 </div>
             </div>
         </div>
     </section>
 
-  
+    <!-- Why Choose Us Section -->
+    <section class="section" id="why-choose-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-dark text-white">Experienced Team of Financial Experts</li>
+                <li class="list-group-item bg-dark text-white">Proven Success in Securing Grants</li>
+                <li class="list-group-item bg-dark text-white">Comprehensive Support Throughout the Process</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="section bg-secondary" id="mission-vision">
+        <div class="container">
+            <h2 class="section-title">Mission & Vision</h2>
+            <p><strong>Mission:</strong> To empower businesses by providing access to financial resources and grants that help them grow and succeed.</p>
+            <p><strong>Vision:</strong> To become the leading platform in grant offerings, ensuring that every deserving business has the opportunity to secure funding.</p>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
     <section class="cta-section">
         <div class="container">
-            <h2>Ready to Take Control of Your Finances?</h2>
-            <p>Join us today and enjoy the best financial management experience.</p>
-            <button class="btn btn-primary">Sign Up Now</button>
+            <h2>Ready to Grow Your Business?</h2>
+            <p>Sign up now and take advantage of our comprehensive grant offerings and expert support!</p>
+            <button class="btn btn-primary"><a href="register.html" class="text-white">Sign Up</a></button>
         </div>
     </section>
 
-    
-    <section class="team-section">
-        <div class="container">
-            <h2>Meet Our Team</h2>
-            <div class="row">
-                <div class="col-md-4 team-member">
-                    <img src="https://via.placeholder.com/150" alt="Team Member 1">
-                    <h5>John Doe</h5>
-                    <p>CEO</p>
-                </div>
-                <div class="col-md-4 team-member">
-                    <img src="https://via.placeholder.com/150" alt="Team Member 2">
-                    <h5>Jane Smith</h5>
-                    <p>CTO</p>
-                </div>
-                <div class="col-md-4 team-member">
-                    <img src="https://via.placeholder.com/150" alt="Team Member 3">
-                    <h5>David Brown</h5>
-                    <p>CFO</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-   
-<section class="testimonials-section">
-    <div class="container">
-        <h2 class="text-center">What Our Customers Say</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <blockquote class="blockquote text-center">
-                    <p>"Fintech App has revolutionized how I manage my finances. It's seamless and secure!"</p>
-                    <footer class="blockquote-footer">Emily Johnson</footer>
-                </blockquote>
-            </div>
-            <div class="col-md-4">
-                <blockquote class="blockquote text-center">
-                    <p>"The analytics feature helped me better understand my spending habits."</p>
-                    <footer class="blockquote-footer">Michael Lee</footer>
-                </blockquote>
-            </div>
-            <div class="col-md-4">
-                <blockquote class="blockquote text-center">
-                    <p>"Customer support is outstanding! They resolved my issue within minutes."</p>
-                    <footer class="blockquote-footer">Sarah Thompson</footer>
-                </blockquote>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="pricing-section">
-    <div class="container">
-        <h2 class="text-center">Choose Your Plan</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card bg-dark text-white">
-                    <div class="card-body">
-                        <h4 class="card-title">Basic</h4>
-                        <h5 class="card-price">$9.99/month</h5>
-                        <ul class="list-unstyled">
-                            <li>✔ Basic Transactions</li>
-                            <li>✔ 24/7 Support</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary btn-block">Get Started</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h4 class="card-title">Pro</h4>
-                        <h5 class="card-price">$19.99/month</h5>
-                        <ul class="list-unstyled">
-                            <li>✔ All Basic Features</li>
-                            <li>✔ Financial Insights</li>
-                            <li>✔ Premium Support</li>
-                        </ul>
-                        <a href="#" class="btn btn-dark btn-block">Get Started</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-dark text-white">
-                    <div class="card-body">
-                        <h4 class="card-title">Enterprise</h4>
-                        <h5 class="card-price">$49.99/month</h5>
-                        <ul class="list-unstyled">
-                            <li>✔ All Pro Features</li>
-                            <li>✔ Custom Integrations</li>
-                            <li>✔ Dedicated Support</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary btn-block">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="newsletter-section bg-dark text-white text-center">
-    <div class="container">
-        <h2>Stay Updated</h2>
-        <p>Subscribe to our newsletter and stay informed about the latest features and updates.</p>
-        <form action="#" class="form-inline justify-content-center">
-            <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter your email">
-            <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
-        </form>
-    </div>
-</section>
-
-
-<footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2024 Fintech App. All rights reserved.</p>
-</footer>
-
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 coinmarketcap. All rights reserved.</p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

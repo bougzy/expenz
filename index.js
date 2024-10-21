@@ -23,7 +23,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://expenza:expenza@expenza.oygju.mongodb.net/expenza', {
+mongoose.connect('mongodb+srv://coinmarketcap:coinmarketcap@coinmarketcap.lz38h.mongodb.net/coinmarketcap', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -737,6 +737,6 @@ app.post('/api/admin/users/profit/:userId',  async (req, res) => {
 
 
 // Start server
-server.listen(5000, () => {
-    console.log('Server is running on port 5000');
+server.listen(8000, () => {
+    console.log('Server is running on port 8000');
 });
